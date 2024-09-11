@@ -1,0 +1,39 @@
+openapi: 3.0.1
+info:
+  title: Gestion de proceso de adquisicion de acero
+  description: Servicio para gestionar el proceso de adquisicion de acero en una empresa de forja de acero.
+  version: 0.0.1
+
+servers:
+  - url: http://localhost:8080
+    description: Servidor local
+
+tags:
+  - name: Compra
+  - name: Acero
+
+paths:
+  /compra:
+    post:
+      tags:
+        - Compra
+      summary: Realizar una compra
+      description: Realiza una compra de acero.
+      operationId: realizarCompra
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Compra'
+      responses:
+        '200':
+          description: Compra realizada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Compra'
+        '400':
+          description: Error en la solicitud
+        '500':
+          description: Error en el servidor
