@@ -1,0 +1,30 @@
+Forja metalica
+
+Insumos:
+- Acero
+
+Procesos:
+- Compra de acero
+
+Diferentes proveedores:
+- Brasil
+- Corea
+- Nacional
+
+Atributos del acero:
+- Grado de impureza
+- Calibre de las barras
+- Pedido por toneladas
+
+Envios:
+- Máximo 2 meses en entregarse
+
+Automatizar proceso de aquisicion de acero:
+- Solicitud del acero
+- Conocer si está disponible o no
+- Fecha en que va a llegar
+- Notificaciones sobre el estado del envio del acero y retrasos (problemas aduanales, etc...)
+- Quien lo envia
+- Cuando lo envia
+- Rastrear el pedido del acero
+- Poder hacer devolución si no se está conforme
