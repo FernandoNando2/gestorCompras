@@ -10,7 +10,6 @@ servers:
 
 tags:
   - name: Compra
-  - name: Acero
 
 paths:
   /compra:
@@ -21,19 +20,60 @@ paths:
       description: Realiza una compra de acero.
       operationId: realizarCompra
       requestBody:
-        required: true
+        description: Contiene los datos de la solicitud de la compra así como datos del proveedor al que se le realizó la compra
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Compra'
       responses:
-        '200':
-          description: Compra realizada
+        '201':
+          description: Compra realizada con éxito
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Compra'
         '400':
           description: Error en la solicitud
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCode'
         '500':
           description: Error en el servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCode'
+    get:
+      tags:
+        - Compra
+      summary: Obtener todas las compras
+      description: Obtiene todas las compras realizadas.
+      operationId: obtenerCompras
+      responses:
+        '200':
+          description: Compras obtenidas con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Compra'
+        '404':
+          description: No se encontraron compras
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCode'
+        '500':
+          description: Error en el servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCode'
+
+components:
+  schemas:
+    Compra:
+
+    ResponseCode:
