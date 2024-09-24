@@ -19,6 +19,7 @@ Atributos del acero:
 Envios:
 - Máximo 2 meses en entregarse
 
+Compra
 Automatizar proceso de aquisicion de acero:
 - Solicitud del acero
 - Conocer si está disponible o no
