@@ -1,58 +1,61 @@
 openapi: 3.0.1
 info:
-  title: Gestion de proceso de adquisicion de acero
-  description: Servicio para gestionar el proceso de adquisicion de acero en una empresa de forja de acero.
+  title: Gestión del Proceso de Adquisición de Acero
+  description: API para gestionar el proceso de adquisición y distribución de acero en una empresa de forja de acero, incluyendo la creación, actualización, y seguimiento de compras y distribuciones.
   version: 0.0.1
-
 servers:
-  - url: http://localhost:8080
-    description: Servidor local
+- url: http://localhost:8083
+  description: Servidor local para pruebas
 
 tags:
-  - name: Compra
+- name: Compra
+  description: Operaciones relacionadas con la adquisición de acero.
+- name: Devolución
+  description: Operaciones relacionadas con la devolución de acero.
 
 paths:
   /compra:
     post:
       tags:
-        - Compra
-      summary: Realizar una compra
-      description: Realiza una compra de acero.
-      operationId: realizarCompra
+      - Compra
+      summary: Realizar una nueva solicitud de compra del acero.
+      description: Crea una nueva solicitud de compra de acero, especificando los detalles de la compra y el proveedor.
+      operationId: postCompra
       requestBody:
-        description: Contiene los datos de la solicitud de la compra así como datos del proveedor al que se le realizó la compra
+        description: Datos necesarios para crear la compra, incluyendo detalles del proveedor.
+        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Compra'
       responses:
         '201':
-          description: Compra realizada con éxito
+          description: Compra creada exitosamente.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Compra'
         '400':
-          description: Error en la solicitud
+          description: Solicitud incorrecta o datos inválidos.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseCode'
         '500':
-          description: Error en el servidor
+          description: Error interno del servidor.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseCode'
     get:
       tags:
-        - Compra
+      - Compra
       summary: Obtener todas las compras
-      description: Obtiene todas las compras realizadas.
-      operationId: obtenerCompras
+      description: Devuelve una lista de todas las compras realizadas.
+      operationId: getCompras
       responses:
         '200':
-          description: Compras obtenidas con éxito
+          description: Compras obtenidas exitosamente.
           content:
             application/json:
               schema:
@@ -60,13 +63,139 @@ paths:
                 items:
                   $ref: '#/components/schemas/Compra'
         '404':
-          description: No se encontraron compras
+          description: No se encontraron compras registradas.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseCode'
         '500':
-          description: Error en el servidor
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCode'
+
+  /compra/{compraId}:
+    get:
+      tags:
+      - Compra
+      summary: Obtener una solicitud de compra específica.
+      description: Devuelve los detalles de una compra específica identificada por su ID.
+      operationId: getCompraById
+      parameters:
+      - name: compraId
+        in: path
+        description: ID de la compra a obtener
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Compra obtenida exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Compra'
+        '400':
+          description: Solicitud incorrecta o datos inválidos.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCode'
+        '404':
+          description: La compra no fue encontrada.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCode'
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCode'
+    put:
+      tags:
+      - Compra
+      summary: Actualizar el problema de la compra.
+      description: Actualiza el problema (si es que hay) de una compra existente.
+      operationId: updateCompraProblemById
+      parameters:
+      - name: compraId
+        in: path
+        description: ID de la compra a actualizar
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Información actualizada de la compra, incluyendo los datos del proveedor.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompraPut'
+      responses:
+        '200':
+          description: Compra actualizada exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompraPut'
+        '400':
+          description: Solicitud incorrecta o datos inválidos.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCode'
+        '404':
+          description: La compra no fue encontrada.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCode'
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCode'
+    delete:
+      tags:
+      - Compra
+      summary: Eliminar una compra
+      description: Elimina una compra identificada por su ID.
+      operationId: deleteCompraById
+      parameters:
+      - name: compraId
+        in: path
+        description: ID de la compra a eliminar
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Compra eliminada exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCode'
+        '400':
+          description: Solicitud incorrecta o datos inválidos.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCode'
+        '404':
+          description: La compra no fue encontrada.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCode'
+        '500':
+          description: Error interno del servidor.
           content:
             application/json:
               schema:
@@ -75,5 +204,65 @@ paths:
 components:
   schemas:
     Compra:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        proveedor:
+          type: string
+        cantidad:
+          type: number
+          format: double
+        fechaPedido:
+          type: string
+          format: date
+        fechaEntrega:
+          type: string
+          format: date
+        estado:
+          type: string
+        precioTotal:
+          type: number
+          format: double
+        disponibilidad:
+          type: boolean
+        problema:
+          type: string
+        fechaEnvio:
+          type: string
+          format: date
+
+    CompraPut:
+      type: object
+      properties:
+        fechaEntrega:
+          type: string
+          format: date
+        estado:
+          type: string
+        problema:
+          type: string
+
+      example:
+        id: 123
+        proveedor: "Brasil"
+        cantidad: 1000.0
+        fechaPedido: "2024-09-17"
+        fechaEntrega: "2024-11-17"
+        estado: "En proceso"
+        precioTotal: 50000.0
+        disponibilidad: true
+        problema: "Retraso en aduanas"
+        fechaEnvio: "2024-10-01"
 
     ResponseCode:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      example:
+        code: "404"
+        message: "Recurso no encontrado"
