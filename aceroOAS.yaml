@@ -8,18 +8,161 @@ servers:
   description: Servidor local para pruebas
 
 tags:
-- name: Compra
+- name: Purchase
   description: Operaciones relacionadas con la adquisición de acero.
 - name: Devolución
   description: Operaciones relacionadas con la devolución de acero.
 
 paths:
-  /compra:
+
+  /return:
     post:
       tags:
-      - Compra
-      summary: Realizar una nueva solicitud de compra del acero.
-      description: Crea una nueva solicitud de compra de acero, especificando los detalles de la compra y el proveedor.
+        - Devolución
+      summary: Realizar una nueva solicitud de devolución de acero.
+      description: Crea una nueva solicitud de devolución de acero, especificando los detalles de la devolución y el proveedor.
+      operationId: postDevolucion
+      requestBody:
+        description: Datos necesarios para crear la devolución, incluyendo detalles del proveedor.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Return'
+      responses:
+        '201':
+          description: Devolución creada exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Return'
+        '400':
+          description: Solicitud incorrecta o datos inválidos.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCode'
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCode'
+
+    get:
+      tags:
+        - Devolución
+      summary: Obtener una lista de devoluciones o una sola devolucion.
+      description: Devuelve una lista de devoluciones o una sola devolucion si el idReturn es especificado.
+      operationId: getReturns
+      parameters:
+        - name: id
+          in: query
+          description: Identificador de la devolución a obtener.
+          required: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Devolución(es) obtenida(s) exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Return'
+        '404':
+          description: Devolución no encontrada.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCode'
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCode'
+
+    
+    put:
+      tags:
+        - Devolución
+      summary: Actualizar el estado de una devolución
+      description: Actualiza el estado de una devolución, especificando el nuevo estado y, en caso de ser necesario, el motivo.
+      operationId: putDevolucion
+      requestBody:
+        description: Datos necesarios para actualizar la devolución, incluyendo el nuevo estado y, en caso de ser necesario, el motivo.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateReturn'
+      responses:
+        '200':
+          description: Devolución actualizada exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Return'
+        '400':
+          description: Solicitud incorrecta o datos inválidos.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCode'
+        '404':
+          description: Devolución no encontrada.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCode'
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCode'
+    
+    delete:
+      tags:
+        - Devolución
+      summary: Eliminar una devolución
+      description: Elimina una devolución existente, especificando su identificador.
+      operationId: deleteDevolucion
+      parameters:
+        - name: id
+          in: query
+          description: Identificador de la devolución a eliminar.
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Devolución eliminada exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCode'
+        '404':
+          description: Devolución no encontrada.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCode'
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCode'
+  
+  /purchase:
+    post:
+      tags:
+        - Purchase
+      summary: Realizar una nueva compra de acero.
+      description: Crea una nueva compra de acero, especificando los detalles de la compra y el proveedor.
       operationId: postCompra
       requestBody:
         description: Datos necesarios para crear la compra, incluyendo detalles del proveedor.
@@ -27,14 +170,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Compra'
+              $ref: '#/components/schemas/Purchase'
       responses:
         '201':
           description: Compra creada exitosamente.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Compra'
+                $ref: '#/components/schemas/Purchase'
         '400':
           description: Solicitud incorrecta o datos inválidos.
           content:
@@ -47,23 +190,69 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseCode'
+    
     get:
       tags:
-      - Compra
-      summary: Obtener todas las compras
-      description: Devuelve una lista de todas las compras realizadas.
+        - Purchase
+      summary: Obtener una lista de compras o una sola compra.
+      description: Devuelve una lista de compras o una sola compra si el idPurchase es especificado.
       operationId: getCompras
+      parameters:
+        - name: id
+          in: query
+          description: Identificador de la compra a obtener.
+          required: false
+          schema:
+            type: integer
+            format: int64
       responses:
         '200':
-          description: Compras obtenidas exitosamente.
+          description: Compra(s) obtenida(s) exitosamente.
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Compra'
+                $ref: '#/components/schemas/Purchase'
         '404':
-          description: No se encontraron compras registradas.
+          description: Compra no encontrada.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCode'
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCode'
+    
+    put:
+      tags:
+        - Purchase
+      summary: Actualizar la fecha de entrega, estatus y problema de una compra
+      description: Actualiza la fecha de entrega, estatus y problema de una compra, especificando la nueva fecha de entrega, el nuevo estatus y, en caso de ser necesario, el problema.
+      operationId: purchaseUpdate
+      requestBody:
+        description: Datos necesarios para actualizar la compra, incluyendo la nueva fecha de entrega, el nuevo estatus y, en caso de ser necesario, el problema.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePurchase'
+      responses:
+        '200':
+          description: Compra actualizada exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Purchase'
+        '400':
+          description: Solicitud incorrecta o datos inválidos.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCode'
+        '404':
+          description: Compra no encontrada.
           content:
             application/json:
               schema:
@@ -75,106 +264,20 @@ paths:
               schema:
                 $ref: '#/components/schemas/ResponseCode'
 
-  /compra/{compraId}:
-    get:
-      tags:
-      - Compra
-      summary: Obtener una solicitud de compra específica.
-      description: Devuelve los detalles de una compra específica identificada por su ID.
-      operationId: getCompraById
-      parameters:
-      - name: compraId
-        in: path
-        description: ID de la compra a obtener
-        required: true
-        schema:
-          type: integer
-          format: int64
-      responses:
-        '200':
-          description: Compra obtenida exitosamente.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Compra'
-        '400':
-          description: Solicitud incorrecta o datos inválidos.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseCode'
-        '404':
-          description: La compra no fue encontrada.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseCode'
-        '500':
-          description: Error interno del servidor.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseCode'
-    put:
-      tags:
-      - Compra
-      summary: Actualizar el problema de la compra.
-      description: Actualiza el problema (si es que hay) de una compra existente.
-      operationId: updateCompraProblemById
-      parameters:
-      - name: compraId
-        in: path
-        description: ID de la compra a actualizar
-        required: true
-        schema:
-          type: integer
-          format: int64
-      requestBody:
-        description: Información actualizada de la compra, incluyendo los datos del proveedor.
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CompraPut'
-      responses:
-        '200':
-          description: Compra actualizada exitosamente.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CompraPut'
-        '400':
-          description: Solicitud incorrecta o datos inválidos.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseCode'
-        '404':
-          description: La compra no fue encontrada.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseCode'
-        '500':
-          description: Error interno del servidor.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseCode'
     delete:
       tags:
-      - Compra
+        - Purchase
       summary: Eliminar una compra
-      description: Elimina una compra identificada por su ID.
-      operationId: deleteCompraById
+      description: Elimina una compra existente, especificando su identificador.
+      operationId: deleteCompra
       parameters:
-      - name: compraId
-        in: path
-        description: ID de la compra a eliminar
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: id
+          in: query
+          description: Identificador de la compra a eliminar.
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         '200':
           description: Compra eliminada exitosamente.
@@ -182,14 +285,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseCode'
-        '400':
-          description: Solicitud incorrecta o datos inválidos.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseCode'
         '404':
-          description: La compra no fue encontrada.
+          description: Compra no encontrada.
           content:
             application/json:
               schema:
@@ -203,44 +300,55 @@ paths:
 
 components:
   schemas:
-    Compra:
+
+    Purchase:
       type: object
       properties:
+
         id:
           type: integer
           format: int64
+
         proveedor:
           type: string
+
         cantidad:
           type: number
           format: double
+
         fechaPedido:
           type: string
           format: date
+
         fechaEntrega:
           type: string
           format: date
+
         estado:
           type: string
+
         precioTotal:
           type: number
           format: double
+
         disponibilidad:
           type: boolean
-        problema:
-          type: string
+          
         fechaEnvio:
           type: string
           format: date
 
-    CompraPut:
+    UpdatePurchase:
       type: object
       properties:
+
         fechaEntrega:
           type: string
           format: date
+
         estado:
           type: string
+
         problema:
           type: string
 
@@ -256,13 +364,51 @@ components:
         problema: "Retraso en aduanas"
         fechaEnvio: "2024-10-01"
 
+    Return:
+      type: object
+      properties:
+
+        id:
+          type: integer
+          format: int64
+
+        proveedor:
+          type: string
+
+        cantidad:
+          type: number
+          format: double
+
+        fechaDevolucion:
+          type: string
+          format: date
+
+        estado:
+          type: string
+
+        motivo:
+          type: string
+
+        fechaEnvio:
+          type: string
+          format: date
+      
+    UpdateReturn:
+      type: object
+      properties:
+
+        estado:
+          type: string
+
     ResponseCode:
       type: object
       properties:
+
         code:
           type: string
         message:
           type: string
+          
       example:
         code: "404"
         message: "Recurso no encontrado"
