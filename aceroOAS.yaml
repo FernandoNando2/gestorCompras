@@ -4,13 +4,13 @@ info:
   description: API para gestionar el proceso de adquisición y distribución de acero en una empresa de forja de acero, incluyendo la creación, actualización, y seguimiento de compras y distribuciones.
   version: 0.0.1
 servers:
-- url: http://localhost:8083
+- url: http://localhost:8080
   description: Servidor local para pruebas
 
 tags:
 - name: Purchase
   description: Operaciones relacionadas con la adquisición de acero.
-- name: Devolución
+- name: Return
   description: Operaciones relacionadas con la devolución de acero.
 
 paths:
@@ -18,7 +18,7 @@ paths:
   /return:
     post:
       tags:
-        - Devolución
+        - Return
       summary: Realizar una nueva solicitud de devolución de acero.
       description: Crea una nueva solicitud de devolución de acero, especificando los detalles de la devolución y el proveedor.
       operationId: postDevolucion
@@ -51,7 +51,7 @@ paths:
 
     get:
       tags:
-        - Devolución
+        - Return
       summary: Obtener una lista de devoluciones o una sola devolucion.
       description: Devuelve una lista de devoluciones o una sola devolucion si el idReturn es especificado.
       operationId: getReturns
@@ -86,7 +86,7 @@ paths:
     
     put:
       tags:
-        - Devolución
+        - Return
       summary: Actualizar el estado de una devolución
       description: Actualiza el estado de una devolución, especificando el nuevo estado y, en caso de ser necesario, el motivo.
       operationId: putDevolucion
@@ -99,7 +99,7 @@ paths:
               $ref: '#/components/schemas/UpdateReturn'
       responses:
         '200':
-          description: Devolución actualizada exitosamente.
+          description: Return actualizada exitosamente.
           content:
             application/json:
               schema:
@@ -125,7 +125,7 @@ paths:
     
     delete:
       tags:
-        - Devolución
+        - Return
       summary: Eliminar una devolución
       description: Elimina una devolución existente, especificando su identificador.
       operationId: deleteDevolucion
@@ -309,87 +309,87 @@ components:
           type: integer
           format: int64
 
-        proveedor:
+        suplier:
           type: string
 
-        cantidad:
+        amount:
           type: number
           format: double
 
-        fechaPedido:
+        orderDate:
           type: string
           format: date
 
-        fechaEntrega:
+        deliveryDate:
           type: string
           format: date
 
-        estado:
+        status:
           type: string
 
-        precioTotal:
+        totalPrice:
           type: number
           format: double
 
-        disponibilidad:
+        availability:
           type: boolean
           
-        fechaEnvio:
+        shippingDate:
           type: string
           format: date
+      
+      example:
+          id: 123
+          suplier: "Brasil"
+          amount: 1000.0
+          orderDate: "2024-09-17"
+          deliveryDate: "2024-11-17"
+          status: "En proceso"
+          totalPrice: 50000.0
+          availability: true
+          problem: "Retraso en aduanas"
+          shippingDate: "2024-10-01"
 
     UpdatePurchase:
       type: object
       properties:
 
-        fechaEntrega:
+        deliveryDate:
           type: string
           format: date
 
-        estado:
+        status:
           type: string
 
-        problema:
+        problem:
           type: string
-
-      example:
-        id: 123
-        proveedor: "Brasil"
-        cantidad: 1000.0
-        fechaPedido: "2024-09-17"
-        fechaEntrega: "2024-11-17"
-        estado: "En proceso"
-        precioTotal: 50000.0
-        disponibilidad: true
-        problema: "Retraso en aduanas"
-        fechaEnvio: "2024-10-01"
 
     Return:
       type: object
       properties:
 
-        id:
+        idReturn:
           type: integer
           format: int64
 
-        proveedor:
+        suplier:
           type: string
 
-        cantidad:
+        amount:
           type: number
           format: double
 
-        fechaDevolucion:
+        returnDate:
           type: string
           format: date
 
-        estado:
+        status:
           type: string
 
-        motivo:
+        reason:
           type: string
 
-        fechaEnvio:
+        shippingDate:
           type: string
           format: date
       
@@ -397,7 +397,11 @@ components:
       type: object
       properties:
 
-        estado:
+        idReturn:
+          type: integer
+          format: int64
+
+        status:
           type: string
 
     ResponseCode:
