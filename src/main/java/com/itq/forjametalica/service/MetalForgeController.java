@@ -40,7 +40,7 @@ public class MetalForgeController {
     }
 
     @GetMapping("/purchase")
-    public ResponseEntity<?> getPurchases(@RequestParam(required = false) Integer idPurchase) {
+    public ResponseEntity<?> getPurchases(@RequestParam(required = false) Integer idPurchase, @RequestParam(required = false) String orderDate) {
         if (idPurchase != null) {
             Purchase purchase = purchaseService.getPurchaseById(idPurchase);
             if (purchase == null) {
@@ -50,7 +50,11 @@ public class MetalForgeController {
                 return new ResponseEntity<>(responseCode, HttpStatus.NOT_FOUND);
             }
             return new ResponseEntity<>(purchase, HttpStatus.OK);
-        } else {
+        } else if(orderDate != null) {
+            List<Purchase> purchases = purchaseService.getPurchasesByOrderDate(orderDate);
+            return new ResponseEntity<>(purchases, HttpStatus.OK);
+
+        }else{
             List<Purchase> purchases = purchaseService.getAllPurchases();
             return new ResponseEntity<>(purchases, HttpStatus.OK);
         }
@@ -90,7 +94,7 @@ public class MetalForgeController {
     }
 
     @GetMapping("/return")
-    public ResponseEntity<?> getReturns(@RequestParam(required = false) Integer idReturn) {
+    public ResponseEntity<?> getReturns(@RequestParam(required = false) Integer idReturn, @RequestParam(required = false) String returnDate) {
         if (idReturn != null) {
             Return devolucion = returnService.getReturnById(idReturn);
             if (devolucion == null) {
@@ -100,7 +104,10 @@ public class MetalForgeController {
                 return new ResponseEntity<>(responseCode,HttpStatus.NOT_FOUND);
             }
             return new ResponseEntity<>(devolucion,HttpStatus.OK);
-        } else {
+        } else if(returnDate != null) {
+            List<Return> Returns = returnService.getReturnsByReturnDate(returnDate);
+            return new ResponseEntity<>(Returns,HttpStatus.OK);
+        }else{
             List<Return> Returns = returnService.getAllReturns();
             return new ResponseEntity<>(Returns,HttpStatus.OK);
         }

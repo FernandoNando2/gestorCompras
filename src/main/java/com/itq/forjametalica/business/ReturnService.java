@@ -36,6 +36,10 @@ public class ReturnService {
         return returns.values().stream().collect(Collectors.toList());
     }
 
+    public List<Return> getReturnsByReturnDate(String returnDate) {
+        return returns.values().stream().filter(r -> r.getReturnDate().equals(returnDate)).collect(Collectors.toList());
+    }
+
     public void deleteReturn(int idReturn) {
         returns.remove(idReturn);
     }
