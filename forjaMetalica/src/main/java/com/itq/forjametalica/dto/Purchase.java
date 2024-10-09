@@ -6,14 +6,12 @@ public class Purchase {
     private String supplier;
     private Double amount;
     private String orderDate;
-
     private String deliveryDate;
     private double totalPrice;
-
     private String problem;
     private boolean isAvailable;
+    private boolean isUrgent;
     private String shippingDate;
-    
     private Status status;
 
     public enum Status {PENDING, DELIVERED, CANCELLED}
@@ -80,6 +78,15 @@ public class Purchase {
 
     public void setAvailable(boolean isAvailable) {
         this.isAvailable = isAvailable;
+    }
+
+    public boolean isUrgent(){
+        return isUrgent;
+    }
+
+    public void setUrgent(boolean isUrgent){
+        this.isUrgent = isUrgent;
+
     }
 
     public String getShippingDate() {
