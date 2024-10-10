@@ -1,7 +1,7 @@
-package com.itq.forjametalica.business;
+package com.itq.generacompra.business;
 
-import com.itq.forjametalica.dto.Purchase;
-import com.itq.forjametalica.dto.UpdatePurchase;
+import com.itq.generacompra.dto.Purchase;
+import com.itq.generacompra.dto.UpdatePurchase;
 
 import java.util.HashMap;
 import java.util.List;

@@ -1,10 +1,10 @@
-package com.itq.forjametalica;
+package com.itq.generacompra;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ForjametalicaApplicationTests {
+class GeneracompraApplicationTests {
 
 	@Test
 	void contextLoads() {

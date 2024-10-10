@@ -1,4 +1,4 @@
-package com.itq.forjametalica.service;
+package com.itq.generacompra.service;
 
 import java.util.List;
 
@@ -13,22 +13,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.itq.forjametalica.business.PurchaseService;
-import com.itq.forjametalica.business.ReturnService;
-import com.itq.forjametalica.dto.Purchase;
-import com.itq.forjametalica.dto.UpdatePurchase;
-import com.itq.forjametalica.dto.Return;
-import com.itq.forjametalica.dto.UpdateReturn;
-import com.itq.forjametalica.dto.ResponseCode;
+import com.itq.generacompra.business.PurchaseService;
+import com.itq.generacompra.business.ReturnService;
+import com.itq.generacompra.dto.Purchase;
+import com.itq.generacompra.dto.UpdatePurchase;
+import com.itq.generacompra.dto.Return;
+import com.itq.generacompra.dto.UpdateReturn;
+import com.itq.generacompra.dto.ResponseCode;
 
 @RestController
 @RequestMapping("/metalforge")
-public class MetalForgeController {
+public class GeneraCompraController {
 
     private ReturnService returnService;
     private PurchaseService purchaseService;
     
-    public MetalForgeController(ReturnService returnService, PurchaseService purchaseService) {
+    public GeneraCompraController(ReturnService returnService, PurchaseService purchaseService) {
         this.returnService = returnService;
         this.purchaseService = purchaseService;
     }

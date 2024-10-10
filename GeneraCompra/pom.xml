@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.itq</groupId>
-	<artifactId>forjametalica</artifactId>
+	<artifactId>generacompra</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>forjametalica</name>
+	<name>generacompra</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>

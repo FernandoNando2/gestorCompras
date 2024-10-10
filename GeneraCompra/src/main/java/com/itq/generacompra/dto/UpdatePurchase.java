@@ -1,4 +1,4 @@
-package com.itq.forjametalica.dto;
+package com.itq.generacompra.dto;
 
 public class UpdatePurchase {
     private int idPurchase;
