@@ -19,7 +19,7 @@ public class JmsProducer {
     public void sendMessage(Purchase purchase) {
         try {
             String purchaseJson = objectMapper.writeValueAsString(purchase);
-            System.out.println("Sending message: " + purchaseJson);
+            System.out.println("Enviando mensaje: " + purchaseJson);
             this.jmsMessagingTemplate.convertAndSend("operativo.in", purchaseJson);
         } catch (JsonProcessingException e) {
             e.printStackTrace();

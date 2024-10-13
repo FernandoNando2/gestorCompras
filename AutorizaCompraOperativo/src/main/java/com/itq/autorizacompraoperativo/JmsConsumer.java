@@ -32,7 +32,7 @@ public class JmsConsumer {
                     System.out.println("La compra con id: " +purchase.getIdPurchase() +" fue rechazada.");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Error al procesar mensaje: " + message);
         }
     }
 }
