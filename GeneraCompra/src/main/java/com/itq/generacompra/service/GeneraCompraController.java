@@ -20,6 +20,7 @@ import com.itq.generacompra.dto.UpdatePurchase;
 import com.itq.generacompra.dto.Return;
 import com.itq.generacompra.dto.UpdateReturn;
 import com.itq.generacompra.dto.ResponseCode;
+import com.itq.generacompra.jms.JmsProducer;
 
 @RestController
 @RequestMapping("/metalforge")
@@ -27,15 +28,18 @@ public class GeneraCompraController {
 
     private ReturnService returnService;
     private PurchaseService purchaseService;
+    private JmsProducer jmsProducer;
     
-    public GeneraCompraController(ReturnService returnService, PurchaseService purchaseService) {
+    public GeneraCompraController(ReturnService returnService, PurchaseService purchaseService, JmsProducer jmsProducer) {
         this.returnService = returnService;
         this.purchaseService = purchaseService;
+        this.jmsProducer = jmsProducer;
     }
 
     @PostMapping(value = "/purchase", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> createPurchase(@RequestBody Purchase purchase) {
         Purchase createdPurchase = purchaseService.createPurchase(purchase);
+        jmsProducer.sendMessage(createdPurchase);
         return new ResponseEntity<>(createdPurchase,HttpStatus.CREATED);
     }
 

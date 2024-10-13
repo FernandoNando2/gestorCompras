@@ -12,38 +12,38 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PurchaseService {
-    private Map<Integer, Purchase> pusrchases = new HashMap<>();
+    private Map<Integer, Purchase> purchases = new HashMap<>();
     private AtomicInteger idCounter = new AtomicInteger();
 
-    public Purchase createPurchase(Purchase pusrchase) {
+    public Purchase createPurchase(Purchase purchase) {
         int idPurchase = idCounter.incrementAndGet();
-        pusrchase.setIdPurchase(idPurchase);
-        pusrchases.put(idPurchase, pusrchase);
-        return pusrchase;
+        purchase.setIdPurchase(idPurchase);
+        purchases.put(idPurchase, purchase);
+        return purchase;
     }
 
     public Purchase getPurchaseById(int idPurchase) {
-        return pusrchases.get(idPurchase);
+        return purchases.get(idPurchase);
     }
 
     public List<Purchase> getAllPurchases() {
-        return pusrchases.values().stream().collect(Collectors.toList());
+        return purchases.values().stream().collect(Collectors.toList());
     }
 
     public List<Purchase> getPurchasesByOrderDate(String orderDate) {
-        return pusrchases.values().stream().filter(p -> p.getOrderDate().equals(orderDate)).collect(Collectors.toList());
+        return purchases.values().stream().filter(p -> p.getOrderDate().equals(orderDate)).collect(Collectors.toList());
     }
 
-    public Purchase updatePurchase(UpdatePurchase updatePusrchase) {
-        Purchase pusrchase = pusrchases.get(updatePusrchase.getIdPurchase());
-        pusrchase.setDeliveryDate(updatePusrchase.getDeliveryDate());
-        pusrchase.setStatus(updatePusrchase.getStatus());
-        pusrchase.setProblem(updatePusrchase.getProblem());
-        return pusrchase;
+    public Purchase updatePurchase(UpdatePurchase updatepurchase) {
+        Purchase purchase = purchases.get(updatepurchase.getIdPurchase());
+        purchase.setDeliveryDate(updatepurchase.getDeliveryDate());
+        purchase.setStatus(updatepurchase.getStatus());
+        purchase.setProblem(updatepurchase.getProblem());
+        return purchase;
     }
 
     public void deletePurchase(int idPurchase) {
-        pusrchases.remove(idPurchase);
+        purchases.remove(idPurchase);
     }
 
 }

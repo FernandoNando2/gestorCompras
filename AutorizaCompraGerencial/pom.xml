@@ -5,14 +5,14 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.4.0-SNAPSHOT</version>
+		<version>3.3.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.soa</groupId>
-	<artifactId>forjametalicajms</artifactId>
+	<groupId>com.itq</groupId>
+	<artifactId>autorizacompragerencial</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>forjametalicajms</name>
-	<description>Demo project for Spring Boot</description>
+	<name>autorizacompragerencial</name>
+	<description>Project for the storage in queues of the authorization of purchases in a gerential mode.</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -27,7 +27,7 @@
 		<url/>
 	</scm>
 	<properties>
-		<java.version>17</java.version>
+		<java.version>21</java.version>
 	</properties>
 	<dependencies>
 		<dependency>

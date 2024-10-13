@@ -1,10 +1,10 @@
-package com.soa.forjametalicajms;
+package com.itq.autorizacompraoperativo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ForjametalicajmsApplicationTests {
+class AutorizacompraoperativoApplicationTests {
 
 	@Test
 	void contextLoads() {

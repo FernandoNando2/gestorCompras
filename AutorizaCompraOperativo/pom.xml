@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.itq</groupId>
-	<artifactId>generacompra</artifactId>
+	<artifactId>autorizacompraoperativo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>generacompra</name>
-	<description>Project for the generation and storage of the iron purchases.</description>
+	<name>autorizacompraoperativo</name>
+	<description>Project for the storage in queues of the authorization of purchases in an operative mode.</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -29,9 +29,11 @@
 	<properties>
 		<java.version>21</java.version>
 	</properties>
-
 	<dependencies>
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-activemq</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -42,17 +44,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-activemq</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-		</dependency>
-
 	</dependencies>
 
 	<build>
